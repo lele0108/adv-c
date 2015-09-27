@@ -3,6 +3,7 @@
 // and then displays the title, description, and price of
 // that product.
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
@@ -13,37 +14,39 @@ const int MAX_PRODNUM = 922;	// The highest product number
 // Function prototypes
 string getProdNum();
 int binarySearch (const string [], int, string);
-void displayProd(const string [], const string [], const double [], int);
+void displayProd(const double [], int);
+
 
 int main()
 {
+    // Variable initializatoin
+    string names[100];
+    double gpa[100];
+    
+    // Reading in text file to array names
+    string line;
+    ifstream myfile ("names.txt");
+    if (myfile.is_open())
+    {
+        int count = 0;
+        while ( getline (myfile,line) )
+        {
+            //gpa[count] = (double)line.substr(0, 3)
+            names[count] = line;
+            count++;
+            cout << line << '\n';
+        }
+        myfile.close();
+    }
+    else cout << "Unable to locate and open file";
+    
     // Array of product IDs
-    string id[NUM_PRODS] = {"914", "915", "916", "917", "918", "919", "920",
-        "921", "922"};
-    
-    // Array of product titles
-    string title[NUM_PRODS] =
-    { "Six Steps to Leadership",
-        "Six Steps to Leadership",
-        "The Road to Excellence",
-        "Seven Lessons of Quality",
-        "Seven Lessons of Quality",
-        "Seven Lessons of Quality",
-        "Teams Are Made, Not Born",
-        "Leadership for the Future",
-        "Leadership for the Future"
-    };
-    
-    // Array of product descriptions
-    string description[NUM_PRODS] =
-    { "Book", "Audio CD", "DVD",
-        "Book", "Audio CD", "DVD",
-        "Book", "Book", "Audio CD"
-    };
+    string id[NUM_PRODS] = {"Abe", "Adam", "Brian", "Charlie", "Devin", "Edward", "Fred",
+        "Gerard", "Henry"};
     
     // Array of product prices
-    double prices[NUM_PRODS] = {12.95, 14.95, 18.95, 16.95, 21.95,
-								31.95, 14.95, 14.95, 16.95};
+    double prices[NUM_PRODS] = {3.0, 3.1, 3.2, 3.3, 3.4,
+								3.5, 3.6, 3.7, 3.8};
     
     string prodNum;	// To hold a product number
     int index;		// To hold search results
@@ -61,7 +64,7 @@ int main()
         if (index == -1)
             cout << "That product number was not found.\n";
         else
-            displayProd(title, description, prices, index);
+            displayProd(prices, index);
         
         // Does the user want to do this again?
         cout << "Would you like to look up another product? (y/n) ";
@@ -134,10 +137,7 @@ int binarySearch(const string array[], int numElems, string value)
 // information in each array contained at the subscript.     *
 //************************************************************
 
-void displayProd(const string title[], const string desc[],
-                 const double price[], int index)
+void displayProd(const double price[], int index)
 {
-    cout << "Title: " << title[index] << endl;
-    cout << "Description: " << desc[index] << endl;
-    cout << "Price: $" << price[index] << endl;
+    cout << "GPA: " << price[index] << endl;
 }
