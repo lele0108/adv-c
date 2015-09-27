@@ -7,10 +7,6 @@
 #include <string>
 using namespace std;
 
-const int NUM_PRODS = 9;		// The number of products produced
-const int MIN_PRODNUM = 914;	// The lowest product number
-const int MAX_PRODNUM = 922;	// The highest product number
-
 // Function prototypes
 string getProdNum();
 int binarySearch (const string [], int, string);
@@ -39,14 +35,6 @@ int main()
         cout << " GPA: " << gpa[i] << endl;
     }*/
     
-    // Array of product IDs
-    string id[NUM_PRODS] = {"Abe", "Adam", "Brian", "Charlie", "Devin", "Edward", "Fred",
-        "Gerard", "Henry"};
-    
-    // Array of product prices
-    double prices[NUM_PRODS] = {3.0, 3.1, 3.2, 3.3, 3.4,
-								3.5, 3.6, 3.7, 3.8};
-    
     string prodNum;	// To hold a product number
     int index;		// To hold search results
     char again;		// To hold a Y or N answer
@@ -57,16 +45,16 @@ int main()
         prodNum = getProdNum();
         
         // Search for the product number.
-        index = binarySearch(id, NUM_PRODS, prodNum);
+        index = binarySearch(names, arrayCounter, prodNum);
         
         // Display the results of the search.
         if (index == -1)
-            cout << "That product number was not found.\n";
+            cout << "That student was not found.\n";
         else
-            displayProd(prices, index);
+            displayProd(gpa, index);
         
         // Does the user want to do this again?
-        cout << "Would you like to look up another product? (y/n) ";
+        cout << "Would you like to look up another student? (y/n) ";
         cin >> again;
     } while (again == 'y' || again == 'Y');
     return 0;
@@ -83,7 +71,7 @@ string getProdNum()
 {
     string prodNum; // Product number
     
-    cout << "Enter the item's product number: ";
+    cout << "Enter the student's name: ";
     cin >> prodNum;
     // Validate input
     /*while (prodNum < MIN_PRODNUM || prodNum > MAX_PRODNUM)
@@ -136,7 +124,7 @@ int binarySearch(const string array[], int numElems, string value)
 // information in each array contained at the subscript.     *
 //************************************************************
 
-void displayProd(const double price[], int index)
+void displayProd(const double gpa[], int index)
 {
-    cout << "GPA: " << price[index] << endl;
+    cout << "GPA: " << gpa[index] << endl;
 }
