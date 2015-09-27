@@ -24,21 +24,20 @@ int main()
     double gpa[100];
     
     // Reading in text file to array names
-    string line;
-    ifstream myfile ("names.txt");
-    if (myfile.is_open())
-    {
-        int count = 0;
-        while ( getline (myfile,line) )
-        {
-            //gpa[count] = (double)line.substr(0, 3)
-            names[count] = line;
-            count++;
-            cout << line << '\n';
-        }
-        myfile.close();
+    string name;
+    double value;
+    ifstream myfile("names.txt", ifstream::in);
+    int arrayCounter = 0;
+    while(myfile >> value >> name) {
+        gpa[arrayCounter] = value;
+        names[arrayCounter] = name;
+        arrayCounter++;
     }
-    else cout << "Unable to locate and open file";
+    
+    /*for (int i = 0; i < arrayCounter; i++) {
+        cout << "Name: " << names[i];
+        cout << " GPA: " << gpa[i] << endl;
+    }*/
     
     // Array of product IDs
     string id[NUM_PRODS] = {"Abe", "Adam", "Brian", "Charlie", "Devin", "Edward", "Fred",
