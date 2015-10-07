@@ -11,17 +11,37 @@
 #include <sstream>
 using namespace std;
 
+const int MAX_SIZE = 30;
+
 // Function prototypes
 //int binarySearch (const string [], int, string);
-void printThis(const int[][30], int);
-void writeTable(const int[][30], const string[], int);
-void writeDest(const int[][30], const string[], int);
-void writeList(const int[][30], const string[], int);
-void writeCheap(const int[][30], const string[], int);
+void printThis(const int[][MAX_SIZE], int);
+int readThisFile(int[][MAX_SIZE], string[]);
+void writeTable(const int[][MAX_SIZE], const string[], int);
+void writeDest(const int[][MAX_SIZE], const string[], int);
+void writeList(const int[][MAX_SIZE], const string[], int);
+void writeCheap(const int[][MAX_SIZE], const string[], int);
 
 int main () {
-  int storage[30][30];
-  string airports[30];
+  int storage[MAX_SIZE][MAX_SIZE];
+  string airports[MAX_SIZE];
+  int num;
+  num = readThisFile(storage, airports);
+  //printThis(storage, num);
+
+  cout << "THIS IS NUM" << num << " ";
+  writeTable(storage, airports, num);
+  cout << endl;
+  writeDest(storage, airports, num);
+  cout << endl;
+  writeList(storage, airports, num);
+  cout << endl;
+  writeCheap(storage, airports, num);
+
+  return 0;
+}
+
+int readThisFile(int storage[][MAX_SIZE], string airports[]) {
   string line;
   ifstream myfile ("airports.txt");
   std::getline (myfile, line);
@@ -48,22 +68,13 @@ int main () {
       count++;
     }
     myfile.close();
+    return num;
   }
   else cout << "Unable to open file"; 
-
-  //printThis(storage, num);
-  writeTable(storage, airports, num);
-  cout << endl;
-  writeDest(storage, airports, num);
-  cout << endl;
-  writeList(storage, airports, num);
-  cout << endl;
-  writeCheap(storage, airports, num);
-
-  return 0;
+  return num;
 }
 
-void writeTable(const int storage[][30], const string airports[], int num) {
+void writeTable(const int storage[][MAX_SIZE], const string airports[], int num) {
     for (int i = 0; i < num; i++) {
         if (i == 0) {
             cout << "    | ";
@@ -83,10 +94,10 @@ void writeTable(const int storage[][30], const string airports[], int num) {
     }
 }
 
-void writeDest(const int storage[][30], const string airports[], int num) {
+void writeDest(const int storage[][MAX_SIZE], const string airports[], int num) {
     for (int i = 0; i < num; i++) {
         int count = 0;
-        string matches[30];
+        string matches[MAX_SIZE];
         for (int j = 0; j < num; j++) {
             if (storage[i][j] != 0) {
                 matches[count] = airports[j];
@@ -103,9 +114,9 @@ void writeDest(const int storage[][30], const string airports[], int num) {
     }
 }
 
-void writeList(const int storage[][30], const string airports[], int num) {
-    int copy[30][30];
-    std::copy(&storage[0][0], &storage[0][0]+30*30,&copy[0][0]);
+void writeList(const int storage[][MAX_SIZE], const string airports[], int num) {
+    int copy[MAX_SIZE][MAX_SIZE];
+    std::copy(&storage[0][0], &storage[0][0]+MAX_SIZE*MAX_SIZE,&copy[0][0]);
     for (int i = 0; i < num; i++) {
         for (int j = 0; j < num; j++) {
             if (copy[i][j] != 0) {
@@ -116,7 +127,7 @@ void writeList(const int storage[][30], const string airports[], int num) {
     }
 }
 
-void writeCheap(const int storage[][30], const string airports[], int num) {
+void writeCheap(const int storage[][MAX_SIZE], const string airports[], int num) {
     for (int i = 0; i < num; i++) {
         int price = INT_MAX;
         int count = -1;
@@ -133,7 +144,7 @@ void writeCheap(const int storage[][30], const string airports[], int num) {
     }
 }
 
-void printThis(const int storage[][30], int num) {
+void printThis(const int storage[][MAX_SIZE], int num) {
     for (int i = 0; i < num; i++) {
         for (int j = 0; j < num; j++) {
             cout << storage[i][j] << " ";
