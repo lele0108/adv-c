@@ -13,6 +13,7 @@ using namespace std;
 
 double** readThisFile(double**);
 void printStuff(double**);
+void insertionSort(double[], int);
 
 int main() {
 	double **pointers;
@@ -62,4 +63,27 @@ void printStuff(double **pointers) {
     cout << endl;
     count++;
   }
+}
+
+}
+
+//**************************************************************
+// Definition of function insertionSort.                       *
+// This function performs an ascending order insertion sort on *
+// array. size is the number of elements in the array.         *
+//**************************************************************
+
+void insertionSort(double array[], int size)
+{
+   for (int curr = 1; curr < size; curr++)
+   {
+      double hold = array[curr];                   // copy current element to hold
+      int back = curr - 1;
+      while (back >= 0 && hold > array[back])   // search where to insert the current element
+      {
+          array[back + 1] = array[back];        // shift to the right
+          back--;
+      }
+      array[back + 1] = hold;                   // put hold back to the array
+   }
 }
