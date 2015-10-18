@@ -1,0 +1,65 @@
+// Homework Three
+// Jimmy (Sicong) Liu 20076260
+// CIS 22B
+// October 17th 2015
+// XCode 7.0
+
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+double** readThisFile(double**);
+void printStuff(double**);
+
+int main() {
+	double **pointers;
+	pointers = readThisFile(pointers);
+  printStuff(pointers);
+	return 0;
+}
+
+// Reads the file and stores it into storage and airports array
+double** readThisFile(double **pointers) {
+  string line;
+  ifstream myfile ("ragged.txt");
+  getline (myfile, line);
+  int num = atoi(line.c_str());
+  pointers = new double *[num + 1];
+  if (myfile.is_open()) { 
+    int count = 0;
+    while ( getline (myfile,line) ) {
+      int innercounter = 1;
+      double number = -1.0;
+    	stringstream stream(line);
+      stream >> number;
+      pointers[count] = new double[(int)number + 1];
+      pointers[count][0] = number + 1;
+    	while (stream >> number) {
+        //cout << number << " " << endl;
+        pointers[count][innercounter] = number;
+        innercounter++;
+      }
+      count++;
+    }
+    myfile.close();
+    pointers[num] = NULL;
+    return pointers;
+  }
+  else cout << "Unable to open file";
+  return 0;
+}
+
+void printStuff(double **pointers) {
+  int count = 0;
+  while (pointers[count] != NULL) {
+    int temp = pointers[count][0];
+    for (int j = 0; j < temp; j++) {
+      cout << pointers[count][j] << " ";
+    }
+    cout << endl;
+    count++;
+  }
+}
