@@ -71,7 +71,7 @@ void printStuff(double **pointers) {
       if (j == 0) {
         cout << setw(2) << fixed << setprecision(0) << pointers[count][j] << " ";
       } else {   
-        cout << setw(5) << fixed << setprecision(1) << pointers[count][j] << " ";
+        cout << setw(6) << fixed << setprecision(1) << pointers[count][j] << " ";
       }
     }
     cout << endl;
