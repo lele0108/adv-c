@@ -16,10 +16,13 @@ void printStuff(double**);
 void insertionSort(double[], int);
 double** tableSort(double**);
 int computeSize(double**);
+void deleteMem(double**);
 
 int main() {
 	double **pointers;
 	pointers = readThisFile(pointers);
+  if (pointers == NULL) //If file failed to be read program exits
+    return 0;
   int count = 0;
   while (pointers[count] != NULL) {
     insertionSort(pointers[count], pointers[count][0]);
@@ -27,10 +30,12 @@ int main() {
   }
   pointers = tableSort(pointers);
   printStuff(pointers);
+  deleteMem(pointers);
+  //printStuff(pointers);
 	return 0;
 }
 
-// Reads the file and stores it into storage and airports array
+// Reads the file and creates dynamic double arrays to store data
 double** readThisFile(double **pointers) {
   string line;
   ifstream myfile ("ragged.txt");
@@ -57,9 +62,10 @@ double** readThisFile(double **pointers) {
     return pointers;
   }
   else cout << "Unable to open file";
-  return 0;
+  return NULL;
 }
 
+// Prints the table of the arrays
 void printStuff(double **pointers) {
   int size = 0;
   size = computeSize(pointers);
@@ -85,6 +91,7 @@ void printStuff(double **pointers) {
 // array. size is the number of elements in the array.         *
 //**************************************************************
 
+// Modified insertionSort for descending order for doubles, ignores first element
 void insertionSort(double array[], int size)
 {
    for (int curr = 2; curr < size + 1; curr++) {
@@ -99,6 +106,7 @@ void insertionSort(double array[], int size)
    }
 }
 
+// Sorts the array of pointers to double arrays, NULL deliminited
 double** tableSort(double **pointers) {
   int curr = 1;
   while(pointers[curr] != NULL) {
@@ -116,9 +124,37 @@ double** tableSort(double **pointers) {
   return pointers;
 }
 
+// Computes the size of the array 
 int computeSize(double **pointers) {
   int count = 0;
   while(pointers[count] != NULL) 
     count++;
   return count;
 }
+
+// Function to delete memory of the 2-D ragged array
+void deleteMem(double **pointers) {
+  int count = 0;
+  while (pointers[count] != NULL) {
+    delete[] pointers[count];
+    count++;
+  }
+  delete[] pointers;
+}
+
+/*
+The ragged array has 13 rows:
+11    9.0    8.9    7.5    6.2    5.3    3.5    2.1    1.6    1.2    1.2    0.8 
+ 7  888.8   99.9   56.8   54.6   23.5   12.2   10.8 
+ 6  888.8   56.8   54.6   23.5   12.2   10.8 
+ 5   56.8   54.6   23.5   12.2    5.8 
+ 5  125.6   38.4   25.2    6.3    4.6 
+ 4   51.2   35.6   23.9    3.7 
+ 3   51.2   35.6   23.9 
+ 3  111.5   34.9   12.1 
+ 3    5.6    5.1    3.5 
+ 2   34.9   12.1 
+ 2   88.8    0.5 
+ 2  384.5    2.9 
+ 1   88.8 
+ */
