@@ -2,6 +2,7 @@
 // Jimmy (Sicong) Liu 20076260
 // CIS 22B
 // September 27th 2015
+// XCode 7.0
 
 #include <iostream>
 #include <fstream>
@@ -13,6 +14,7 @@ string getProdNum();
 int binarySearch (const string [], int, string);
 void displayProd(const double [], int, const string[]);
 void writeToFile(const string[], int);
+void printThisLine();
 
 
 int main()
@@ -34,15 +36,10 @@ int main()
             names[arrayCounter] = name;
             arrayCounter++;
         } else {
-            cout << "The file contains more than 100 lines!";
+            printThisLine();
             break;
         }
     }
-    
-    /*for (int i = 0; i < arrayCounter; i++) {
-        cout << "Name: " << names[i];
-        cout << " GPA: " << gpa[i] << endl;
-    }*/
     
     string prodNum;	// To hold a product number
     int index;		// To hold search results
@@ -73,38 +70,17 @@ int main()
     return 0;
 }
 
-//***************************************************
-// Definition of getProdNum function                *
-// The getProdNum function asks the user to enter a *
-// product number. The input is validated, and when *
-// a valid number is entered, it is returned.       *
-//***************************************************
-
+// Get the name of the student from user input
 string getProdNum()
 {
     string prodNum; // Product number
     
     cout << "Enter the student's name: ";
     cin >> prodNum;
-    // Validate input
-    /*while (prodNum < MIN_PRODNUM || prodNum > MAX_PRODNUM)
-    {
-        cout << "Enter a number in the range of " << MIN_PRODNUM;
-        cout <<" through " << MAX_PRODNUM << ".\n";
-        cin >> prodNum;
-    }*/
     return prodNum;
 }
 
-//***************************************************************
-// Definition of binarySearch function                          *
-// The binarySearch function performs a binary search on an     *
-// integer array. array, which has a maximum of numElems        *
-// elements, is searched for the number stored in value. If the *
-// number is found, its array subscript is returned. Otherwise, *
-// -1 is returned indicating the value was not in the array.    *
-//***************************************************************
-
+// Does all the binary searching
 int binarySearch(const string array[], int numElems, string value)
 {
     int first = 0,			 // First array element
@@ -129,20 +105,14 @@ int binarySearch(const string array[], int numElems, string value)
     return position;
 }
 
-//************************************************************
-// The displayProd function accepts three arrays and an int. *
-// The arrays parameters are expected to hold the title,     *
-// description, and prices arrays defined in main. The index *
-// parameter holds a subscript. This function displays the   *
-// information in each array contained at the subscript.     *
-//************************************************************
-
+// Print name and GPA of student requested
 void displayProd(const double gpa[], int index, const string names[])
 {
     cout << "Name: " << names[index] << "\n";
     cout << "GPA: " << gpa[index] << endl;
 }
 
+// Write the missing student names to a file
 void writeToFile(const string names[], int count) {
     ofstream outputFile ("missingNames.text");
     if (outputFile.is_open()) {
@@ -154,3 +124,28 @@ void writeToFile(const string names[], int count) {
         cout << "Unable to create file to write missing names";
     }
 }
+
+// Call this function when file is more than 100 lines
+void printThisLine() {
+    cout << "The file contains more than 100 lines!\n";
+}
+
+/*
+Output:
+ 
+ MacBook-Pro-2:test jimmyliu$ ./a.out
+ Enter the student's name: Adam
+ Name: Adam
+ GPA: 2
+ Would you like to look up another student? (y/n) y
+ Enter the student's name: Clare
+ Name: Clare
+ GPA: 3.9
+ Would you like to look up another student? (y/n) y
+ Enter the student's name: Jimmy
+ That student was not found.
+ Would you like to look up another student? (y/n) y
+ Enter the student's name: Stephen
+ That student was not found.
+ Would you like to look up another student? (y/n) n
+*/

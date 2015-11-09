@@ -14,7 +14,7 @@ using namespace std;
 double** readThisFile(double**);
 void printStuff(double**);
 void insertionSort(double[], int);
-double** tableSort(double**);
+void tableSort(double**);
 int computeSize(double**);
 void deleteMem(double**);
 
@@ -28,10 +28,9 @@ int main() {
     insertionSort(pointers[count], pointers[count][0]);
     count++;
   }
-  pointers = tableSort(pointers);
+  tableSort(pointers);
   printStuff(pointers);
   deleteMem(pointers);
-  //printStuff(pointers);
 	return 0;
 }
 
@@ -107,7 +106,7 @@ void insertionSort(double array[], int size)
 }
 
 // Sorts the array of pointers to double arrays, NULL deliminited
-double** tableSort(double **pointers) {
+void tableSort(double **pointers) {
   int curr = 1;
   while(pointers[curr] != NULL) {
       double *hold = pointers[curr];                   // copy current element to hold
@@ -121,7 +120,7 @@ double** tableSort(double **pointers) {
       curr++;
   }
 
-  return pointers;
+  //return pointers;
 }
 
 // Computes the size of the array 

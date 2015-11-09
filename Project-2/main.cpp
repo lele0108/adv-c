@@ -11,10 +11,9 @@
 #include <sstream>
 using namespace std;
 
-const int MAX_SIZE = 30;
+const int MAX_SIZE = 30; //Size of array for data storage
 
 // Function prototypes
-//int binarySearch (const string [], int, string);
 void printThis(const int[][MAX_SIZE], int);
 int readThisFile(int[][MAX_SIZE], string[]);
 void writeTable(const int[][MAX_SIZE], const string[], int);
@@ -22,14 +21,13 @@ void writeDest(const int[][MAX_SIZE], const string[], int);
 void writeList(const int[][MAX_SIZE], const string[], int);
 void writeCheap(const int[][MAX_SIZE], const string[], int);
 
+// Main function of program
 int main () {
   int storage[MAX_SIZE][MAX_SIZE];
   string airports[MAX_SIZE];
   int num;
   num = readThisFile(storage, airports);
   //printThis(storage, num);
-
-  cout << "THIS IS NUM" << num << " ";
   writeTable(storage, airports, num);
   cout << endl;
   writeDest(storage, airports, num);
@@ -41,10 +39,11 @@ int main () {
   return 0;
 }
 
+// Reads the file and stores it into storage and airports array
 int readThisFile(int storage[][MAX_SIZE], string airports[]) {
   string line;
   ifstream myfile ("airports.txt");
-  std::getline (myfile, line);
+  getline (myfile, line);
   int num = atoi(line.c_str());
 
   if (myfile.is_open()) { 
@@ -54,7 +53,7 @@ int readThisFile(int storage[][MAX_SIZE], string airports[]) {
         airports[count] = line;
       }
       else { //numbers
-        std::stringstream stream(line);
+        stringstream stream(line);
         int i = 0;
         while(1) {
            int number;
@@ -74,6 +73,7 @@ int readThisFile(int storage[][MAX_SIZE], string airports[]) {
   return num;
 }
 
+// Prints out the tables from airport and storage array, formatted
 void writeTable(const int storage[][MAX_SIZE], const string airports[], int num) {
     for (int i = 0; i < num; i++) {
         if (i == 0) {
@@ -94,6 +94,7 @@ void writeTable(const int storage[][MAX_SIZE], const string airports[], int num)
     }
 }
 
+// Prings out all the possible destinations from each airport
 void writeDest(const int storage[][MAX_SIZE], const string airports[], int num) {
     for (int i = 0; i < num; i++) {
         int count = 0;
@@ -114,6 +115,7 @@ void writeDest(const int storage[][MAX_SIZE], const string airports[], int num) 
     }
 }
 
+// Prints out the possible routes from all the airport, no repeats
 void writeList(const int storage[][MAX_SIZE], const string airports[], int num) {
     int copy[MAX_SIZE][MAX_SIZE];
     std::copy(&storage[0][0], &storage[0][0]+MAX_SIZE*MAX_SIZE,&copy[0][0]);
@@ -127,6 +129,7 @@ void writeList(const int storage[][MAX_SIZE], const string airports[], int num) 
     }
 }
 
+// Cheapest route from each airport
 void writeCheap(const int storage[][MAX_SIZE], const string airports[], int num) {
     for (int i = 0; i < num; i++) {
         int price = INT_MAX;
@@ -144,6 +147,7 @@ void writeCheap(const int storage[][MAX_SIZE], const string airports[], int num)
     }
 }
 
+// Test function used for debugging, not actaully called
 void printThis(const int storage[][MAX_SIZE], int num) {
     for (int i = 0; i < num; i++) {
         for (int j = 0; j < num; j++) {

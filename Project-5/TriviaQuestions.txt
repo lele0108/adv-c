@@ -1,0 +1,47 @@
+9
+An object is, conceptually, a self-contained unit consisting of
+Attributes(data) and procedures(functions)
+Attributes
+Procedures
+Data
+Encapsulation refers to
+Combining data and code into a single object
+Storing data into an object
+Creating functions for an object
+Protecting data
+Data hiding refers to an object’s ability to
+Hide its data from code that is outside the object
+Hide its data from code that is inside the object
+Hide its data
+Hide its procedures
+A class is not an object, but it is
+A description of an object
+An instance of an object
+Code that specifies the attributes that a particular type of object may have
+Code that specifies the functions that a particular type of object may have
+An object is not a class, but it is
+An instance of a class
+A description of a class
+Code that specifies the attributes that a class may have
+Code that specifies the functions that a class may have
+The operator that identifies the function as a member of a class is
+::
+:
+->
+.
+The complete name of the operator that identifies the function as a member of a class is
+Scope resolution operator
+Scope operator
+Identification operator
+Scope identification operator
+Some programmers refer to mutators as
+Setter functions
+Getter functions
+Change functions
+Accessor functions
+Some programmers refer to accessors as
+Getter functions
+Setter functions
+Getter functions
+Change functions
+Mutators functions
