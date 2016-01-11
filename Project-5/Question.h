@@ -16,7 +16,6 @@ class Question {
 		int correct;
 	public:
 		Question();
-		//Question(string[], string);
 		int getCorrect() const;
 		string getQuestion() const;
 		string *getAnswers();

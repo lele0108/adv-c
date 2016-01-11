@@ -1,6 +1,11 @@
-// Specification file for the NumberList class
-#ifndef NUMBERLIST_H
-#define NUMBERLIST_H
+// Jimmy Liu
+// Project 6
+// 16 Nov. 2015
+// XCode 7.0
+
+// Specification file for the CountryList class
+#ifndef CountryList_H
+#define CountryList_H
 using namespace std;
 
 struct Data
@@ -13,7 +18,7 @@ struct Data
     // other fields could be added here
 };
 
-class NumberList
+class CountryList
 {
 private:
    // Declare a structure for the list
@@ -28,16 +33,16 @@ private:
 
 public:
    // Constructor
-   NumberList()
+   CountryList()
       { head = NULL; }
 
    // Destructor
-   ~NumberList();
+   ~CountryList();
 
    // Linked list operations
    void appendNode(Data);   //void appendNode(double);
    void insertNode(Data);   //void insertNode(double);
-   void deleteNode(char*);
+   bool deleteNode(char*);
    Data searchNode(char*);
    void displayList() const;
 

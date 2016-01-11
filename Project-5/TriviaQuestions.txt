@@ -1,4 +1,4 @@
-9
+18
 An object is, conceptually, a self-contained unit consisting of
 Attributes(data) and procedures(functions)
 Attributes
@@ -42,6 +42,50 @@ Accessor functions
 Some programmers refer to accessors as
 Getter functions
 Setter functions
-Getter functions
 Change functions
 Mutators functions
+What language is this program written in
+Cplusplus
+Javascript
+Python
+English
+What do classes have that structures do not
+Methods
+Variables
+Names
+Curly Brackets
+What is a seed
+Determines sequence of pseudorandom numbers
+What a plant grows from
+Stuff in whole grain bread
+Thing used in Minecraft
+What are local variables
+A variable declared within the body of a function defination
+Things you can buy from your local supermarket
+Variables that reside in the state of California
+Variables that can pay in-state tuition
+Is the random number generator actually random
+No
+Yes
+Maybe
+Who knows
+Why are Strings better than CStrings
+CStrings are prone to out of bound errors
+CStrings are annoying to use
+No one uses CStrings anymore
+They have to be null terminated
+Which of the follow are not loops
+can loop
+if loop
+for loop
+while loop
+Which is the most effecient runtime
+Static
+N
+N times N
+N times N times N
+What color is the famous C book
+Blue
+Green
+Red
+Pink

@@ -1,9 +1,14 @@
-// Implementation file for the NumberList class
+// Jimmy Liu
+// Project 6
+// 16 Nov. 2015
+// XCode 7.0
+
+// Implementation file for the CountryList class
 #include <iostream>  // For cout  and NULL
 #include <iomanip>
 #include <string>
 #include <cstring>
-#include "NumberList.h"
+#include "CountryList.h"
 using namespace std;
 
 //**************************************************
@@ -11,8 +16,8 @@ using namespace std;
 // value pased into num, to the end of the list.   *
 //**************************************************
 
-//void NumberList::appendNode(double num)
-void NumberList::appendNode(Data data)
+//void CountryList::appendNode(double num)
+void CountryList::appendNode(Data data)
 {
    ListNode *newNode;  // To point to a new node
    ListNode *nodePtr;  // To move through the list
@@ -46,7 +51,7 @@ void NumberList::appendNode(Data data)
 // pointed to by head.                             *
 //**************************************************
 
-void NumberList::displayList() const
+void CountryList::displayList() const
 {
    ListNode *nodePtr;  // To move through the list
 
@@ -55,7 +60,7 @@ void NumberList::displayList() const
 
    // While nodePtr points to a node, traverse
    // the list.
-   cout << "Code  " << setw(20) << left << "Name" << setw(17) << left << " Capital " << setw(12) << right << "Population" << endl;
+   cout << "Code  " << setw(20) << left << "Name" << setw(17) << left << "  Capital " << setw(12) << right << "Population" << endl;
    while (nodePtr)
    {
       // Display the value in this node.
@@ -78,8 +83,8 @@ void NumberList::displayList() const
 // num copied to its value member.                 *
 //**************************************************
 
-//void NumberList::insertNode(double num)
-void NumberList::insertNode(Data dataIn)
+//void CountryList::insertNode(double num)
+void CountryList::insertNode(Data dataIn)
 {
    ListNode *newNode;             // A new node
    ListNode *nodePtr;             // To traverse the list
@@ -135,14 +140,14 @@ void NumberList::insertNode(Data dataIn)
 // deleted from the list and from memory.          *
 //**************************************************
 
-void NumberList::deleteNode(char *temp)
+bool CountryList::deleteNode(char *temp)
 {
    ListNode *nodePtr;       // To traverse the list
    ListNode *previousNode;  // To point to the previous node
 
    // If the list is empty, do nothing.
    if (!head)
-      return;
+      return false;
 
    // Determine if the first node is the one.
    //if (head->value == num)
@@ -151,6 +156,7 @@ void NumberList::deleteNode(char *temp)
       nodePtr = head->next;
       delete head;
       head = nodePtr;
+      return true;
    }
    else
    {
@@ -173,11 +179,13 @@ void NumberList::deleteNode(char *temp)
       {
          previousNode->next = nodePtr->next;
          delete nodePtr;
+         return true;
       }
    }
+   return false;
 }
 
-Data NumberList::searchNode(char *temp)
+Data CountryList::searchNode(char *temp)
 {
    ListNode *nodePtr;       // To traverse the list
    ListNode *previousNode;  // To point to the previous node
@@ -224,7 +232,7 @@ Data NumberList::searchNode(char *temp)
 // This function deletes every node in the list.   *
 //**************************************************
 
-NumberList::~NumberList()
+CountryList::~CountryList()
 {
    ListNode *nodePtr;   // To traverse the list
    ListNode *nextNode;  // To point to the next node

@@ -1,7 +1,7 @@
-// Homework Four
+// Homework Four (Resubmission)
 // Jimmy (Sicong) Liu 20076260
 // CIS 22B
-// October 24th 2015
+// December 4th 2015
 // XCode 7.0
 
 #include <iostream>
@@ -9,31 +9,38 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <map>
 #include <regex>
 #include <algorithm>
-#include <iterator>
 using namespace std;
 
-// Data structure used as value in map, .value gets count of word
+// structure number, word is used to store the word, value is count. < is overloaded for sorting
 struct number {
-  int value;
+  string word;
+  int value = 0;
+
+  bool operator<(const number &a) const {
+      return word.compare(a.word) < 0;
+  }
 };
 
 string promptForFile();
-int readThisFile(map<string, number> &songWords, string name);
-int printMap(map<string, number> &songWords, int longest);
-void writeToFile(map<string, number> &songWords, int longest, int most);
+int readThisFile(number* songWords, string name);
+int printMap(number* songWords, int longest);
+int countArray(number* songWords);
+void writeToFile(number* songWords, int longest, int most, int count);
 
 // Main function of the program
 int main() {
-	map<string, number> songWords;
+  number songWords[100];
   string temp = promptForFile();
 	int longest = readThisFile(songWords, temp);
 	if (longest < 0)
 		return 0;
+  int size = sizeof(songWords)/sizeof(songWords[0]);
+  sort(songWords, songWords+size);
 	int most = printMap(songWords, longest);
-	writeToFile(songWords, longest, most);
+  int count = countArray(songWords);
+	writeToFile(songWords, longest, most, count);
 	return 0;
 }
 
@@ -47,8 +54,8 @@ string promptForFile() {
   return temp;
 }
 
-// Reads the file into the Map data structure and counts the number of repeat words, regex to clean
-int readThisFile(map<string, number> &songWords, string name) {
+// Reads the file into the array data structure and counts the number of repeat words, regex to clean
+int readThisFile(number* songWords, string name) {
   int longest = 0;
   string line;
   regex e ("[.,]");
@@ -62,10 +69,16 @@ int readThisFile(map<string, number> &songWords, string name) {
       	transform(word.begin(), word.end(), word.begin(), ::tolower);
       	if (word.length() > longest)
       		longest = word.length();
-      	if (songWords.find(word) == songWords.end())
-      		songWords[word].value = 1;
-      	else
-      		songWords[word].value = songWords[word].value + 1;
+        for (int i = 0; i < 100; i++) {
+          if (songWords[i].word == word) {
+            songWords[i].value++;
+            break;
+          } else if (songWords[i].word.empty()) {
+            songWords[i].word = word;
+            songWords[i].value = 1;
+            break;
+          }
+        }
       }
     }
     myfile.close();
@@ -75,30 +88,42 @@ int readThisFile(map<string, number> &songWords, string name) {
   return -1;
 }
 
-// Prints the map to display value to user
-int printMap(map<string, number> &songWords, int longest) {
+
+// Prints the array to display value to user
+int printMap(number* songWords, int longest) {
 	int most = 0;
-	for (auto i : songWords) {
-        cout << setw(3) << i.second.value << " " << i.first.c_str() << " " << endl;
-        if (i.second.value > most)
-        	most = i.second.value;
-    }
-    return most;
+  for (int i = 0; i < 100; i++) {
+    if (!songWords[i].word.empty())
+      cout << setw(3) << songWords[i].value << " " << songWords[i].word << " " << endl;
+      if (songWords[i].value > most)
+        most = songWords[i].value;
+  }
+  return most;
+}
+
+int countArray(number* songWords) {
+  int count = 0;
+  for (int i = 0; i < 100; i++)
+     if (!songWords[i].word.empty())
+      count++;
+  return count;
 }
 
 // Writes the results of the program to a file
-void writeToFile(map<string, number> &songWords, int longest, int most) {
+void writeToFile(number* songWords, int longest, int most, int count) {
 	ofstream outputFile ("words.txt");
 	if (outputFile.is_open()) {
-        outputFile << songWords.size() << " words" << endl;
+    outputFile << count << " words" << endl;
 		outputFile << "Maximum length: " << longest << endl;
 		outputFile << "Highest frequency: " << most << "\n\n";
-		for (auto i : songWords)
-	        outputFile << setw(3) << i.second.value << " " << i.first.c_str() << " " << endl;
-        outputFile.close();
-    } else {
-        cout << "Unable to create file to write words";
+		for (int i = 0; i < 100; i++) {
+	   if (!songWords[i].word.empty())
+      outputFile << setw(3) << songWords[i].value << " " << songWords[i].word << " " << endl;
     }
+    outputFile.close();
+  } else {
+      cout << "Unable to create file to write words";
+  }
 }
 
 /*
