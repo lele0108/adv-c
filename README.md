@@ -1,8 +1,8 @@
 # adv-c
 
-Course: De Anza CIS22B 
-Instructor: Delia Garbacea
-Time: Fall 2015
+* Course: De Anza CIS22B 
+* Instructor: Delia Garbacea
+* Time: Fall 2015
 
 # License
  
